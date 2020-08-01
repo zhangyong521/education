@@ -19,7 +19,7 @@ public class EducationException extends RuntimeException {
 
     @ApiModelProperty(value = "状态码")
     private Integer code;
-
+    @ApiModelProperty(value = "状态信息")
     private String msg;
 
 }

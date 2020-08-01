@@ -11,9 +11,9 @@ public interface ResultCode {
     /**
      * 表示成功
      */
-    Integer SUCCESS = 200;
+    Integer SUCCESS = 20000;
     /**
      * 表示失败
      */
-    Integer ERROR = 400;
+    Integer ERROR = 20001;
 }
