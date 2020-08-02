@@ -1,6 +1,7 @@
 package com.zhangyong.eduservice.controller;
 
 
+import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zhangyong.eduservice.entity.EduTeacher;
 import com.zhangyong.eduservice.service.EduTeacherService;
@@ -10,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +36,7 @@ import java.util.List;
 @Api(description = "讲师管理")
 @RestController
 @RequestMapping("/eduservice/teacher")
+@CrossOrigin  //解决跨域
 public class EduTeacherController {
 
     @Autowired
@@ -48,7 +51,7 @@ public class EduTeacherController {
     }
 
     @ApiOperation(value = "根据ID逻辑删除讲师")
-    @DeleteMapping("{id}")
+    @DeleteMapping("delete/{id}")
     public ResultMsg removeById(
             @ApiParam(name = "id", value = "讲师ID", required = true)
             @PathVariable String id) {
@@ -57,6 +60,12 @@ public class EduTeacherController {
     }
 
 
+    /**
+     * 条件查询+分页
+     * @param page
+     * @param limit
+     * @return
+     */
     @ApiOperation(value = "分页讲师列表")
     @GetMapping("{page}/{limit}")
     public ResultMsg pageList(
@@ -77,7 +86,7 @@ public class EduTeacherController {
     }
 
     @ApiOperation(value = "分页讲师列表")
-    @PostMapping("{page}/{limit}")
+    @PostMapping("pageTeacherCondition/{page}/{limit}")
     public ResultMsg pageQuery(
             @ApiParam(name = "page", value = "当前页码", required = true)
             @PathVariable Long page,
@@ -107,7 +116,7 @@ public class EduTeacherController {
     }
 
     @ApiOperation(value = "根据Id查询讲师")
-    @GetMapping("{id}")
+    @GetMapping("getId/{id}")
     public ResultMsg getById(
             @ApiParam(name = "id", value = "讲师id", required = true)
             @PathVariable String id) {
@@ -116,7 +125,7 @@ public class EduTeacherController {
     }
 
     @ApiOperation(value = "根据Id修改讲师")
-    @PutMapping("{id}")
+    @PutMapping("update/{id}")
     public ResultMsg UpdateById(
             @ApiParam(name = "id", value = "讲师id", required = true)
             @PathVariable String id,
@@ -130,6 +139,21 @@ public class EduTeacherController {
             return ResultMsg.ok();
         }
         return ResultMsg.error();
+    }
+
+    /**
+     * 讲师修改功能
+     * @param eduTeacher
+     * @return
+     */
+    @PostMapping("updateTeacher")
+    public ResultMsg updateTeacher(@RequestBody EduTeacher eduTeacher) {
+        boolean flag = teacherService.updateById(eduTeacher);
+        if(flag) {
+            return ResultMsg.ok();
+        } else {
+            return ResultMsg.error();
+        }
     }
 
 }

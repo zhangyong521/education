@@ -25,7 +25,9 @@ public class EduTeacherServiceImpl extends ServiceImpl<EduTeacherMapper, EduTeac
     @Override
     public void pageQuery(Page<EduTeacher> pageParam, TeacherQuery eduTeacherVO) {
         QueryWrapper<EduTeacher> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByAsc("sort");
+
+        //按照添加的时间进行排序
+        queryWrapper.orderByDesc("gmt_create");
 
         if (eduTeacherVO == null) {
             baseMapper.selectPage(pageParam, queryWrapper);
