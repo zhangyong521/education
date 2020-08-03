@@ -1,6 +1,7 @@
 package com.zhangyong.eduservice.controller;
 
 import com.zhangyong.utils.ResultMsg;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,9 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date: 2020-08-01 8:05
  * @PS: 登录的接口
  */
+@Api(description = "测试登录")
 @RestController
 @RequestMapping("/eduservice/user")
-@CrossOrigin  //解决跨域
+@CrossOrigin
 public class EduLoginController {
 
     /**
